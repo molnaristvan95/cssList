@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title></title>
+ <script type="text/javascript">
+  const create = (c) => {
+   return document.createElement(c);
+  },
+  append = (par, chil) => {
+   return par.appendChild(chil);
+  },
+  node = (variable, t) => {
+   let txt = document.createTextNode(t);
+   variable.appendChild(txt);
+   return;
+  },
+  event = (target, triger, func) => {
+   return target.setAttribute(triger, func);
+  },
+  substr = (a, b, c) => {
+   if (Number.isInteger(b) && Number.isInteger(c)) {
+    return a.substring(b, c);
+   } else {
+    return a.substring(1);
+   }
+  },
+  $ = (e) => {
+   let elem;
+   if (e[0] == '#') {
+    let x = substr(e);
+    elem = document.getElementById(x);
+   } else if (e[0] == '.') {
+    let x = substr(e);
+    elem = document.getElementsByClassName(x);
+   } else if (e[0] == 'n') {
+    let x = substr(e);
+    elem = document.getElementsByName(x);
+   } else if (e[0] == 't') {
+    let x = substr(e);
+    elem = document.getElementsByTagName(x);
+   }
+   return elem;
+  },
+  html = (el, h) => {
+   if (!h) {
+    return el.innerHTML;
+   } else {
+    return el.innerHTML = h;
+   }
+  },
+  csss = (el, c) => {
+   let separ = c.split(';');
+   return el.style[separ[0]] = separ[1];
+  };
+ </script>
+ <style rel="stylesheet" type="text/css">
+
+ </style>
+</head>
+<body>
+
+ <script type="text/javascript">
+  document.body.style.background = 'gray';
+  let css = window.getComputedStyle(document.documentElement);
+
+  let total = css.length,
+  counter = 0,
+  fps = Math.ceil(1000/60);
+  function listing() {
+   if (counter < total) {
+    document.body.innerHTML += `${counter} : ${css[counter]} <br>`;
+    counter++;
+    window.scrollTo(0, document.documentElement.scrollHeight);
+    setTimeout(listing, fps);
+   }
+  }
+  listing();
+ </script>
+</body>
+</html>
